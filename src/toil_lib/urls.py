@@ -41,6 +41,7 @@ def download_url(job, url, work_dir='.', name=None, s3_key_path=None, cghub_key_
 
 def download_url_job(job, url, name=None, s3_key_path=None, cghub_key_path=None):
     """Job version of `download_url`"""
+    job.fileStore.logToMaster("Downloading: {}".format(url))
     work_dir = job.fileStore.getLocalTempDir()
     fpath = download_url(job=job, url=url, work_dir=work_dir, name=name,
                          s3_key_path=s3_key_path, cghub_key_path=cghub_key_path)
@@ -151,7 +152,7 @@ def _s3am_with_retry(job, num_cores, file_path, s3_url, mode='upload', s3_key_pa
     retry_count = 3
     for i in xrange(retry_count):
         try:
-            dockerCall(job=job, tool='quay.io/ucsc_cgl/s3am:2.0--fed932897e7fd40f4ec878362e5dd6afe15caaf0',
+            dockerCall(job=job, tool='quay.io/lexentbio/s3am:2.1.0a1--d0e26e89fcd7d0e9e51aef75d4f29f5c5a5ac14c',
                        parameters=arguments, dockerParameters=docker_parameters)
         except subprocess.CalledProcessError:
             _log.debug('S3AM %s failed', mode, exc_info=True)

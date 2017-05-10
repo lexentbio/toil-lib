@@ -50,7 +50,7 @@ def check_provided(distribution, min_version, max_version=None, optional=False):
         return str(installed_version)
 
 
-toil_version = check_provided('toil', min_version='3.7.0a1.dev392', max_version='3.7.0a1.dev392')
+toil_version = check_provided('toil', min_version='3.7.0a1.dev392', max_version='3.10.0a1')
 
 kwargs = dict(
     name='toil-lib',
